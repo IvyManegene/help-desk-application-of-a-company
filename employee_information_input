@@ -1,0 +1,75 @@
+#include<iostream>
+
+using namespace std;
+
+struct node{
+	string name;
+	string issue;
+	node* next;
+};
+node* front = NULL;
+
+void enqueue(string name, string issue){
+	node* temp = new node();
+	temp->name = name;
+	temp->issue = issue;
+	temp->next = NULL;
+	
+	if(front == NULL){
+		front = temp;
+		return;
+	}
+	
+	node* temp2 = front;
+	while(temp2->next != NULL){
+		temp2 = temp2->next;
+	}
+	
+	temp2->next = temp;
+}
+void dequeue(){
+	if(front == NULL){
+		cout<<"\nThe queue is empty.";
+		return;
+	}
+	front = front->next;
+}
+bool isEmpty(){
+	if(front == NULL){
+		return true;
+	}else{
+		return false;
+	}
+}
+void print(){
+	node* temp = front;
+	
+	if(front == NULL){
+		cout<<"\nThe queue is empty.";
+		return;
+	}
+	
+	cout<<"\nName\t\t\tIssue"<<endl;;
+	while(temp != NULL){
+		cout<<temp->name<<"\t\t\t"<<temp->issue<<endl;;
+		temp= temp->next;
+	}
+}
+
+int main(){
+	string name, issue;
+	
+	cout<<"\nEnter name of employee[press -1 to exit]: ";
+	cin>>name;
+
+	while(name != "-1"){
+		cout<<"Enter the issue: ";
+		cin>>issue;
+		enqueue(name,issue);
+		cout<<"\nEnter name of employee[press -1 to exit]: ";
+		cin>>name;
+	}
+	
+	print();
+	return 0;
+}
